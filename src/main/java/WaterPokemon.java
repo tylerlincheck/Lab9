@@ -24,6 +24,7 @@ public class WaterPokemon extends Pokemon {
      *
      */
     public WaterPokemon() {
+        super();
         pokeType = PokemonType.WATER;
         specialtyAttack = "HYDRO CANNON";
         specialtyProbability = specProb;
@@ -61,10 +62,26 @@ public class WaterPokemon extends Pokemon {
      * Implement this.
      */
     public boolean attack(final Pokemon opponent) {
-        return false;
+        super.attack(opponent);
+        if(opponent.getHitPoints() > 0) {
+            Dice die = new Dice(100);
+            if (specialtyProbability > (double) (die.roll() / 100.0)) {
+                if (opponent.pokeType != this.pokeType) {
+                    System.out.println(this.getName() + " executes a specialty attack... HYDRO CANNON!!!");
+                    opponent.setHitPoints(0);
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+
     }
 
 
 
 
-}
+
